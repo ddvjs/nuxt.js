@@ -7,7 +7,7 @@ const url = route => 'http://localhost:' + port + route
 let nuxt = null
 // let buildSpies = null
 
-describe.skip('module', () => {
+describe('module', () => {
   beforeAll(async () => {
     const config = loadFixture('module')
     nuxt = new Nuxt(config)
@@ -51,6 +51,11 @@ describe.skip('module', () => {
   test('Hooks - Use external middleware before render', async () => {
     let response = await rp(url('/use-middleware'))
     expect(response).toBe('Use external middleware')
+  })
+
+  test('Hooks - render context', async () => {
+    await nuxt.renderRoute('/render-context')
+    expect(nuxt.__render_context).toBeTruthy()
   })
 
   // Close server and ask nuxt to stop listening to file changes
